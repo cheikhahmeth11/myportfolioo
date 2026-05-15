@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="icon" type="image/png" href="image1.jpeg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEOPICTURE | Photographe Événementiel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{line-height:1.6;background:black;color:white;scroll-behavior:smooth;}
+a{text-decoration:none;color:inherit;}
+
+/* HEADER / NAVBAR */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #111;
+  color: white;
+  z-index: 1000;
+}
+header .logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff9800;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li a {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.nav-links li a:hover {
+  color: #ff9800;
+}
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #ff9800;
+}
+
+/* Responsive mobile navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #111;
+    display: none;
+    padding: 20px 0;
+  }
+  .nav-links li {
+    text-align: center;
+    margin: 10px 0;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* HERO */
+.hero{
+  height:100vh;background:url('image1.jpeg') center/cover no-repeat;display:flex;
+  justify-content:center;align-items:center;text-align:center;color:white;position:relative;
+}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.5);}
+.hero-text{position:relative;z-index:1;}
+.hero-text h1{font-size:48px;margin-bottom:15px;}
+.hero-text p{font-size:20px;margin-bottom:20px;}
+.btn{display:inline-block;background:#ff9800;color:white;padding:12px 25px;border-radius:25px;font-weight:500;transition:.3s;border:none;cursor:pointer;}
+.btn:hover{background:#e68900;transform:scale(1.05);}
+
+/* SECTION */
+section{padding:80px 20px;}
+.container{max-width:1200px;margin:0 auto;text-align:center;opacity:0;transform:translateY(40px);transition:.8s;}
+.subtitle{color:white;margin-bottom:30px;}
+
+/* SERVICES */
+.cards{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:40px;}
+.card{background:black;padding:25px;border-radius:15px;width:280px;transition:.4s; border:2px solid #ff9800;   box-shadow: #ff9800 0px 0px 10px;}
+.card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+.card h3{margin-bottom:15px;color: white;}
+.card p{margin-bottom:10px;color:white;}
+.card .price{font-weight:700;color:#ff9800;margin-bottom:15px;}
+
+/* CONTACT SECTION & RÉSERVATION */
+#contact, #reservation {
+  padding: 60px 20px;
+  background-color: black; /* fond noir uniforme */
+  color: #fff;
+}
+#contact h2, #reservation h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #ff9800; /* titre orange */
+}
+
+/* SECTION RÉSERVATION */
+#reservation{
+  padding:80px 20px;
+  background:black;
+  color:white;
+  text-align:center;
+}
+
+#reservation h2{
+  font-size:28px;
+  margin-bottom:10px;
+  color:#ff9800;
+}
+
+#reservation .subtitle{
+  margin-bottom:35px;
+  color:#ddd;
+  font-size:16px;
+}
+
+/* FORMULAIRE */
+.reservation-form{
+  max-width:500px;
+  margin:0 auto;
+  background:#1a1a1a;
+  padding:30px;
+  border-radius:15px;
+  border:2px solid #ff9800;
+}
+
+/* GROUPES */
+.reservation-form .form-group{
+  margin-bottom:18px;
+  text-align:left;
+}
+
+.reservation-form label{
+  display:block;
+  margin-bottom:6px;
+  font-size:14px;
+  color:#ff9800;
+  font-weight:500;
+}
+
+/* INPUTS */
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid #555;
+  background:#222;
+  color:white;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+.reservation-form input:focus,
+.reservation-form select:focus,
+.reservation-form textarea:focus{
+  border-color:#ff9800;
+}
+
+/* BOUTON */
+.reservation-form .btn{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  background:#ff9800;
+  color:white;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.reservation-form .btn:hover{
+  background:#ffc107;
+  transform:scale(1.03);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .reservation-form{
+    max-width:100%;
+    padding:25px;
+  }
+
+  #reservation h2{
+    font-size:24px;
+  }
+}
+
+/* CONTACT GRID */
+.contact-grid {
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+.contact-info {
+       box-shadow: #ff9800 0px 0px 10px;
+    flex: 1 1 300px;
+  max-width: 500px;
+  background-color: #1a1a1a;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #ff9800;
+}
+
+.contact-form  {
+    background: url(logo.jpeg);
+    background-size: cover;
+    flex: 1 1 300px;
+    box-shadow: #ff9800 0px 0px 10px;
+  max-width: 500px;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #ff9800;
+}
+
+/* BOUTONS FLOTTANTS */
+.social-float {
+  position: fixed;
+  bottom: 20px;   /* ⬅️ en bas */
+  right: 20px;    /* ⬅️ à droite */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+}
+
+.social-float .social {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.social-float img {
+  width: 22px;
+  height: 22px;
+}
+
+/* SNAP PERSONNALISÉ */
+
+
+/* LOGO */
+.social.snap img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: none; /* IMPORTANT */
+}
+
+.logo img {
+  height: 50px;
+  width: 50px;          /* important pour cercle parfait */
+  border-radius: 50%;   /* rend le logo rond */
+  object-fit: cover;    /* évite déformation */
+  border: 2px solid #ff9800; /* optionnel : contour stylé */
+  transition: 0.3s;
+}
+
+.logo img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff9800;
+}
+
+
+
+/* COULEURS */
+.social.insta { background: #E1306C; }
+.social.tiktok { background: #000; }
+.social.snap { background: #FFFC00; }
+
+
+/* HOVER */
+.social:hover {
+  transform: scale(1.15);
+}
+.reservation-form {
+     background: url(logo.jpeg);
+       background-size: cover;
+          box-shadow: #ff9800 0px 0px 10px;
+    flex: 1 1 300px;
+  max-width: 500px;
+  background-color: #1a1a1a;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #ff9800;
+}
+.contact-info h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #ff9800;
+}
+.contact-info p {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #ddd;
+}
+.contact-info strong { color:#fff; }
+
+.icon-btn {
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s, background 0.3s;
+  margin-left: 6px;
+}
+.icon-btn img { width:18px;height:18px; }
+.icon-btn.phone { background-color:#28a745; }
+.icon-btn.whatsapp { background-color:#25D366; }
+.icon-btn:hover { transform:scale(1.05); background-color:#20b450; }
+
+.contact-info .btn, .contact-form button, .reservation-form button {
+  display:inline-block;margin-top:15px;padding:10px 22px;background-color:#ff9800;color:#fff;border-radius:50px;font-weight:500;cursor:pointer;transition:.3s;
+}
+.contact-info .btn:hover, .contact-form button:hover, .reservation-form button:hover { background-color:#ffc107; transform:scale(1.05); }
+
+.contact-form .form-group, .reservation-form .form-group {
+  margin-bottom:15px;
+}
+.contact-form label, .reservation-form label { display:block;font-size:14px;margin-bottom:5px;color:#ff9800; }
+.contact-form input, .contact-form textarea, .reservation-form input, .reservation-form textarea, .reservation-form select {
+  width:100%;padding:8px 12px;border-radius:8px;border:1px solid #555;background:#222;color:#fff;font-size:14px;outline:none;transition:border-color .3s;
+}
+.contact-form input:focus, .contact-form textarea:focus, .reservation-form input:focus, .reservation-form textarea:focus { border-color:#ff9800; }
+
+/* GALLERY */
+.gallery{column-count:3;column-gap:15px;margin-top:40px;}
+.gallery img{width:100%;margin-bottom:15px;border-radius:10px;transition:.4s;cursor:pointer;}
+.gallery img:hover{transform:scale(1.05);}
+
+/* FOOTER */
+footer{background:#111;color:white;padding:20px 0;text-align:center;margin-top:50px;}
+
+/* ANIMATIONS */
+.visible{opacity:1 !important;transform:translateY(0) !important;transition:.8s;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.cards{justify-content:center;}.contact-grid{flex-direction:column;}.gallery{column-count:2;}}
+@media(max-width:768px){.hero-text h1{font-size:36px;}.hero-text p{font-size:18px;}.nav-links{display:none;}.menu-toggle{display:block;}}
+@media(max-width:600px){.hero-text h1{font-size:32px;}.hero-text p{font-size:16px;}.gallery{column-count:1;}}
+
+/* LIGHTBOX PRO */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px white ;
+  animation: zoom 0.3s ease;
+}
+
+/* boutons */
+#lightbox .close,
+#lightbox .prev,
+#lightbox .next {
+  position: absolute;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* positions */
+#lightbox .close { top: 20px; right: 30px; }
+#lightbox .prev { left: 30px; top: 50%; transform: translateY(-50%); }
+#lightbox .next { right: 30px; top: 50%; transform: translateY(-50%); }
+
+/* hover */
+#lightbox .prev:hover,
+#lightbox .next:hover,
+#lightbox .close:hover {
+  color: orange;
+}
+
+@keyframes zoom {
+  from {transform: scale(0.7);}
+  to {transform: scale(1);}
+}
+
+/* POPUP CONFIRMATION */
+#confirmBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.confirm-content {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid #ff9800;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.confirm-content h3 {
+  color: #ff9800;
+  margin-bottom: 15px;
+}
+
+.confirm-content p {
+  white-space: pre-line;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER / NAVBAR -->
+<header>
+  <h1 class="logo">TEOPICTURE</h1>
+  <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#home">Accueil</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reservation">Réservation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<!-- HERO -->
+<section id="home" class="hero">
+<div class="hero-text">
+<h1>Immortalisez vos moments précieux</h1>
+<p>Mariages • Anniversaires • Événements</p>
+<a href="#reservation" class="btn">Réserver une séance</a>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="container">
+<h2>Portfolio</h2>
+<p class="subtitle">Quelques moments capturés</p>
+<div class="gallery">
+<img src="photo1.jpeg" alt="Mariage">
+<img src="photo2.jpeg" alt="Anniversaire">
+<img src="photo3.jpeg" alt="Événement">
+<img src="photo4.jpeg" alt="Shooting">
+<img src="photo5.jpeg" alt="Baptême">
+<img src="photo6.jpeg" alt="Mariage">
+<img src="photo7.jpeg" alt="Mariage">
+<img src="photo8.jpeg" alt="Mariage">
+<img src="photo9.jpeg" alt="Mariage">
+<img src="photo10.jpeg" alt="Mariage">
+<img src="photo11.jpeg" alt="Mariage">
+<img src="photo12.jpeg" alt="Mariage">
+<img src="photo13.jpeg" alt="Mariage">
+<img src="photo14.jpeg" alt="Mariage">
+<img src="photo15.jpeg" alt="Mariage">
+<img src="photo16.jpeg" alt="Mariage">
+<img src="photo17.jpeg" alt="Mariage">
+<img src="photo18.jpeg" alt="Mariage">
+</div>
+</section>
+
+<!-- LIGHTBOX PRO -->
+<div id="lightbox">
+  <span class="close">&times;</span>
+  <span class="prev">&#10094;</span>
+  <img id="lightbox-img" src="">
+  <span class="next">&#10095;</span>
+</div>
+<!-- SERVICES -->
+<section id="services" class="container">
+  <h2>Services</h2>
+  <p class="subtitle">Des prestations adaptées à vos événements</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Mariage</h3>
+      <p>Couverture complète de votre mariage</p>
+      <p class="price">À partir de 100 000 FCFA</p>
+      <button class="btn" onclick="toggleDetails('mariage')">Détails</button>
+      <div id="details-mariage" class="details" style="display:none;margin-top:10px;">
+        <ul>
+          <li>60 photos : 100 000 FCFA</li>
+          <li>80 photos : 120 000 FCFA</li>
+          <li>100 photos : 140 000 FCFA</li>
+          <li>Option Video : Sur demande</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Anniversaire</h3>
+      <p>Shooting anniversaire</p>
+      <p class="price">À partir de 5 000 FCFA</p>
+      <button class="btn" onclick="toggleDetails('anniversaire')">Détails</button>
+      <div id="details-anniversaire" class="details" style="display:none;margin-top:10px;">
+        <ul>
+          <li>3 photos : 5 000 FCFA</li>
+          <li>6 photos : 10 000 FCFA</li>
+          <li>9 photos : 15 000 FCFA</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Shooting</h3>
+      <p>Séance photo personnalisée</p>
+      <p class="price">À partir de 10 000 FCFA</p>
+      <button class="btn" onclick="toggleDetails('shooting')">Détails</button>
+      <div id="details-shooting" class="details" style="display:none;margin-top:10px;">
+        <ul>
+          <li>6 photos : 10 000 FCFA</li>
+
+          <li>9 photos : 15 000 FCFA</li>
+          <li>12 photos : 20 000 FCFA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSERVATION -->
+<section id="reservation" class="container">
+  <h2>Réserver une séance</h2>
+  <p class="subtitle">Remplissez le formulaire pour réserver</p>
+  <form class="reservation-form">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" id="nom" placeholder="Votre nom" required>
+    </div>
+    <div class="form-group">
+      <label for="telephone">Téléphone</label>
+      <input type="tel" id="telephone" required>
+    </div>
+    <div class="form-group">
+      <label for="evenement">Type d'événement</label>
+      <select id="evenement">
+        <option>Mariage</option>
+        <option>Anniversaire</option>
+        <option>Baptême</option>
+        <option>Shooting</option>
+        <option>Korite</option>
+        <option>Tabaski</option>
+      </select>
+    </div>
+    <div class="form-group">
+  <label for="date">Date</label>
+  <input type="date" id="date" required>
+</div>
+
+<div class="form-group">
+  <label for="heure">Heure</label>
+  <input type="time" id="heure" required>
+</div>
+    </div>
+    <div class="form-group">
+      <label for="lieu">Lieu</label>
+      <input type="text" id="lieu" placeholder="Ex : Thies, Sénégal">
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" rows="3" placeholder="Votre message"></textarea>
+    </div>
+    <button type="button" onclick="envoyerReservation()" class="btn">Réserver</button>
+  </form>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="container">
+  <h2>Contactez-nous</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Informations</h3>
+      <p><strong>Téléphone :</strong> <a href="tel:+221775781956" class="icon-btn phone"><img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Appel">77 578 19 56</a></p>
+      <p><strong>WhatsApp :</strong> <a href="https://wa.me/221775781956" target="_blank" class="icon-btn whatsapp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">77 578 19 56</a></p>
+      <p><strong>Ville :</strong> Dakar / Thies</p>
+      <a href="#reservation" class="btn">Réserver une séance</a>
+    </div>
+    <form class="contact-form">
+      <div class="form-group"><label>Nom</label><input type="text" id="contactNom" required></div>
+      <div class="form-group"><label>Téléphone</label><input type="tel" id="contactTel" required placeholder="77 578 19 56"></div>
+      <div class="form-group"><label>Message</label><textarea id="contactMsg" rows="5" required></textarea></div>
+      <button type="button" onclick="envoyerContact()" class="btn">Envoyer</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>© 2026 TEOPICTURE - Tous droits réservés</p></footer>
+
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // =============================
+  // CONFIG FIREBASE
+  // =============================
+  const firebaseConfig = {
+    apiKey: "AIzaSyCP3ruoYjCeRTUBhRVsbRzi-R2UtNmrxGs",
+    authDomain: "teopicture-ca10f.firebaseapp.com",
+    projectId: "teopicture-ca10f",
+    storageBucket: "teopicture-ca10f.firebasestorage.app",
+    messagingSenderId: "205836454272",
+    appId: "1:205836454272:web:e7c4b001049d03972bd965"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  let datesIndisponibles = [];
+
+  // =============================
+  // DATE MIN (aujourd’hui)
+  // =============================
+  const dateInput = document.getElementById("date");
+  if (dateInput) {
+    let today = new Date().toISOString().split("T")[0];
+    dateInput.setAttribute("min", today);
+  }
+
+  // =============================
+  // CHARGER DATES DEJA RESERVEES
+  // =============================
+  function chargerDates() {
+    db.collection("reservations").get().then(snapshot => {
+      datesIndisponibles = [];
+      snapshot.forEach(doc => {
+        datesIndisponibles.push(doc.data().dateComplete);
+      });
+    });
+  }
+  chargerDates();
+
+  // =============================
+  // BLOQUER DATE + HEURE
+  // =============================
+  if (dateInput) {
+    dateInput.addEventListener("change", function () {
+      let heure = document.getElementById("heure").value;
+      let dateComplete = this.value + " " + heure;
+
+      if (datesIndisponibles.includes(dateComplete)) {
+        alert("❌ Cette date et heure sont déjà réservées !");
+        this.value = "";
+      }
+    });
+  }
+
+  // =============================
+  // BOUTON RESERVER → POPUP
+  // =============================
+  window.envoyerReservation = function () {
+
+    let nom = document.getElementById("nom").value;
+    let tel = document.getElementById("telephone").value;
+    let evenement = document.getElementById("evenement").value;
+    let date = document.getElementById("date").value;
+    let heure = document.getElementById("heure").value;
+    let lieu = document.getElementById("lieu").value;
+
+    if (!nom || !tel || !date || !heure) {
+      alert("⚠️ Veuillez remplir tous les champs obligatoires !");
+      return;
+    }
+
+    let dateComplete = date + " " + heure;
+
+    if (datesIndisponibles.includes(dateComplete)) {
+      alert("❌ Ce créneau est déjà réservé !");
+      return;
+    }
+
+    document.getElementById("confirmText").innerText =
+      "Nom : " + nom +
+      "\nTéléphone : " + tel +
+      "\nÉvénement : " + evenement +
+      "\nDate : " + date +
+      "\nHeure : " + heure +
+      "\nLieu : " + lieu;
+
+    document.getElementById("confirmBox").style.display = "flex";
+  }
+
+  // =============================
+  // CONFIRMATION
+  // =============================
+  window.confirmerEnvoi = function () {
+
+    let nom = document.getElementById("nom").value;
+    let tel = document.getElementById("telephone").value;
+    let evenement = document.getElementById("evenement").value;
+    let date = document.getElementById("date").value;
+    let heure = document.getElementById("heure").value;
+    let lieu = document.getElementById("lieu").value;
+    let msg = document.getElementById("message").value;
+
+    let dateComplete = date + " " + heure;
+
+    let data = {
+      nom,
+      telephone: tel,
+      evenement,
+      date,
+      heure,
+      dateComplete,
+      lieu,
+      message: msg,
+      createdAt: new Date()
+    };
+
+    let texteWhatsApp =
+      "📸 *NOUVELLE RÉSERVATION* %0A%0A" +
+      "*Nom* : " + nom + "%0A" +
+      "*Téléphone* : " + tel + "%0A" +
+      "*Événement* : " + evenement + "%0A" +
+      "*Date* : " + date + "%0A" +
+      "*Heure* : " + heure + "%0A" +
+      "*Lieu* : " + lieu + "%0A" +
+      "*Message* : " + msg;
+
+    db.collection("reservations").add(data)
+      .then(() => {
+
+        // Ouvre WhatsApp
+        window.location.href = "https://wa.me/221775781956?text=" + texteWhatsApp;
+
+        fermerConfirm();
+        document.querySelector(".reservation-form").reset();
+        chargerDates();
+
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ Erreur lors de l'enregistrement !");
+      });
+  }
+
+  // =============================
+  // FERMER POPUP
+  // =============================
+  window.fermerConfirm = function () {
+    document.getElementById("confirmBox").style.display = "none";
+  }
+
+});
+</script>
+<!-- SCRIPTS -->
+<script>
+// Scroll animations
+const elements = document.querySelectorAll(".container, .card, .gallery img, .hero-text");
+function checkScroll(){ const screenHeight = window.innerHeight; elements.forEach(el=>{ const pos = el.getBoundingClientRect().top; if(pos<screenHeight-100){el.classList.add("visible");} }); }
+window.addEventListener("scroll",checkScroll);
+window.addEventListener("load",checkScroll);
+
+// Toggle services details
+function toggleDetails(service){ const el = document.getElementById('details-'+service); el.style.display = (el.style.display==='none') ? 'block' : 'none'; }
+
+// Mobile menu toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+mobileMenu.addEventListener('click',()=>{ navLinks.classList.toggle('active'); });
+
+// Contact WhatsApp
+function envoyerContact(){
+  let nom=document.getElementById("contactNom").value;
+  let tel=document.getElementById("contactTel").value;
+  let msg=document.getElementById("contactMsg").value;
+  let texte="Bonjour, je vous contacte depuis TEOPICTURE.%0A%0ANom : "+nom+"%0ATéléphone : "+tel+"%0AMessage : "+msg;
+  window.open("https://wa.me/221775781956?text="+texte);
+}
+
+// LIGHTBOX PRO
+const images = document.querySelectorAll(".gallery img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
+
+let currentIndex = 0;
+
+// ouvrir image
+images.forEach((img, index) => {
+  img.addEventListener("click", () => {
+    currentIndex = index;
+    showImage();
+    lightbox.style.display = "flex";
+  });
+});
+
+// afficher image
+function showImage() {
+  lightboxImg.src = images[currentIndex].src;
+}
+
+// suivant
+function nextImage() {
+  currentIndex = (currentIndex + 1) % images.length;
+  showImage();
+}
+
+// précédent
+function prevImage() {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  showImage();
+}
+
+// events
+nextBtn.addEventListener("click", nextImage);
+prevBtn.addEventListener("click", prevImage);
+
+// fermer
+closeBtn.addEventListener("click", () => {
+  lightbox.style.display = "none";
+});
+
+// fermer en cliquant dehors
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = "none";
+  }
+});
+
+// clavier
+document.addEventListener("keydown", (e) => {
+  if (lightbox.style.display === "flex") {
+    if (e.key === "ArrowRight") nextImage();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "Escape") lightbox.style.display = "none";
+  }
+});
+
+// SWIPE MOBILE
+let startX = 0;
+
+lightbox.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+lightbox.addEventListener("touchend", (e) => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX - endX > 50) nextImage(); // swipe gauche
+  if (endX - startX > 50) prevImage(); // swipe droite
+});
+</script>
+
+<div class="social-float">
+  <a href="https://www.instagram.com/theo._.picture?igsh=MnhrZTlzZXN4Nzh2&utm_source=qr" target="_blank" class="social insta">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+  </a>
+
+  <a href="https://www.tiktok.com/@theopic0?_r=1&_t=ZS-94nAo7q3VBc" target="_blank" class="social tiktok">
+    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+  </a>
+
+  <a href="https://snapchat.com/t/nbfODNLb" target="_blank" class="social snap">
+  <img src="./snappp.jpg" alt="Snapchat">
+</a>
+</div>
+<!-- POPUP CONFIRMATION -->
+<div id="confirmBox" style="display:none;">
+  <div class="confirm-content">
+    <h3>Confirmer votre réservation</h3>
+    <p id="confirmText"></p>
+    <button onclick="confirmerEnvoi()" class="btn">Confirmer</button>
+    <button onclick="fermerConfirm()" class="btn" style="background:#555;">Annuler</button>
+  </div>
+</div>
+</body>
+</html>
